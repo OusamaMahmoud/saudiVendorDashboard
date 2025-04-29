@@ -10,6 +10,7 @@ import ProductImageForm from "./ProductImageForm";
 import AttributesForm from "./AttributesForm";
 import apiClient from "../../../utils/apiClient";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 // Schema definition
 const productFormSchema = z.object({
@@ -28,6 +29,7 @@ type ProductDescription = {
 };
 
 const ProductForm: React.FC = () => {
+    const navigate = useNavigate();
     const methods = useForm<ProductFormData>({
         resolver: zodResolver(productFormSchema),
         defaultValues: {
@@ -82,10 +84,14 @@ const ProductForm: React.FC = () => {
         try {
             const response = await apiClient.post("/api/dashboard/products/storeBaseInformation", formData);
             toast.success("Product saved successfully!");
-            console.log("Product saved successfully:", response.data);
+            console.log("is This THe Id =>", response.data);
+            navigate("/products/complete-product", {
+                state: { productId: response.data.data.productId },
+            });
             reset(); // Reset the form after successful submission
         } catch (error) {
             console.error("Error saving product:", error);
+            toast.error("Error saving product");
         }
     };
 
@@ -114,7 +120,7 @@ const ProductForm: React.FC = () => {
                                     id="productNameArabic"
                                     type="text"
                                     placeholder="اسم المنتج بالعربية"
-                                    className="input input-bordered w-full pr-10"
+                                    className="input input-bordered w-full bg-white pr-10"
                                 />
                             </div>
                             {errors.productNameArabic && <p className="mt-1 text-sm text-red-600">{errors.productNameArabic.message}</p>}
@@ -134,7 +140,7 @@ const ProductForm: React.FC = () => {
                                     id="productNameEnglish"
                                     type="text"
                                     placeholder="Product name in English"
-                                    className="input input-bordered w-full pr-10"
+                                    className="input input-bordered w-full bg-white pr-10"
                                 />
                             </div>
                             {errors.productNameEnglish && <p className="mt-1 text-sm text-red-600">{errors.productNameEnglish.message}</p>}
@@ -156,7 +162,7 @@ const ProductForm: React.FC = () => {
                                     {...register("price")}
                                     id="price"
                                     type="number"
-                                    className="appearance:textfield] input input-bordered w-full pr-10 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                                    className="appearance:textfield] input input-bordered w-full bg-white pr-10 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                 />
                             </div>
                             {errors.price && <p className="mt-1 text-sm text-red-600">{errors.price.message}</p>}
@@ -175,7 +181,7 @@ const ProductForm: React.FC = () => {
                                     {...register("priceWithSale")}
                                     id="priceWithSale"
                                     type="number"
-                                    className="input input-bordered w-full pr-10 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                                    className="input input-bordered w-full bg-white pr-10 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                 />
                             </div>
                             {errors.priceWithSale && <p className="mt-1 text-sm text-red-600">{errors.priceWithSale.message}</p>}
@@ -197,7 +203,7 @@ const ProductForm: React.FC = () => {
                                     {...register("quantity")}
                                     id="quantity"
                                     type="number"
-                                    className="input input-bordered w-full pr-10 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                                    className="input input-bordered w-full bg-white pr-10 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                 />
                             </div>
                             {errors.quantity && <p className="mt-1 text-sm text-red-600">{errors.quantity.message}</p>}
@@ -216,7 +222,7 @@ const ProductForm: React.FC = () => {
                                     {...register("sku")}
                                     id="sku"
                                     type="text"
-                                    className="appearance:textfield] input input-bordered w-full pr-10 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                                    className="appearance:textfield] input input-bordered w-full bg-white pr-10 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                 />
                             </div>
                             {errors.sku && <p className="mt-1 text-sm text-red-600">{errors.sku.message}</p>}
