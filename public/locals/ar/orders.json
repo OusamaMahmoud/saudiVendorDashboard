@@ -1,0 +1,45 @@
+{
+    "table_headers": {
+        "order_number": "رقم الطلب",
+        "customer": "العميل",
+        "order_date": "تاريخ الطلب",
+        "total": "المجموع",
+        "order_details": "تفاصيل الطلب"
+    },
+    "orderDetails": "تفاصيل الطلب",
+    "ordersDetailsTableHeaders": {
+        "product": "المنتج",
+        "productNumber": "رقم المنتج",
+        "currentQuantity": "الكميه الحاليه",
+        "price": "السعر",
+        "color": "اللون",
+        "orderNumber": "رقم الطلب",
+        "creationDate": "تاريخ الإنشاء"
+    },
+    "paymentStatus": {
+        "status": "الحالة",
+        "pending": "قيد الانتظار",
+        "completed": "مكتمل",
+        "failed": "فشل",
+        "canceled": "ملغي",
+        "refunded": "تم الاسترداد",
+        "processing": "قيد المعالجة"
+    },
+    "customer": {
+        "customer": "العميل",
+        "city": "المدينه",
+        "billing": "عنوان الفواتير",
+        "shipping": "عنوان الشحن"
+    },
+    "price": "السعر",
+    "productValue": "قيمة المنتجات",
+    "discount": "التخفيض",
+    "totalAmount": "المجموع الكلي",
+    "customerNotes": "ملاحظات العميل حول الطلب",
+    "noNotes": "لا توجد ملاحظات",
+    "orderDelivery": "وكيل التوصيل",
+    "orderDeliveryDetails": "مندوب",
+    "orderpaymentMethod": "طريقة الدفع",
+    "ordersDetailsHeader": "تفاصيل الطلب",
+    "orderNo": " رقم الطلب"
+}

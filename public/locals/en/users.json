@@ -1,0 +1,8 @@
+{
+    "table_headers": {
+        "username": "Username",
+        "email": "Email",
+        "phone": "Phone",
+        "action": "Actions"
+    }
+}

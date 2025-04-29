@@ -1,0 +1,8 @@
+{
+    "table_headers": {
+        "username": "الاسم",
+        "email": "الايميل",
+        "phone": "رقم الهاتف",
+        "action": "إجراء "
+    }
+}

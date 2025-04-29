@@ -1,0 +1,17 @@
+{
+    "title": "Dashboard",
+    "latestorder": "Latest Order",
+    "total_products": "Total Products",
+    "total_sales": "Total Sales",
+    "total_customers": "Total Customers",
+    "order_coupon": "Order Coupon",
+    "average_sales_per_user": "Average Sales Per User",
+    "user_coupon": "User Coupon",
+    "tableHeader": {
+        "orderNo": "Order No.",
+        "client": "Client",
+        "orderDate": "Order Date",
+        "result": "Result",
+        "orderDetails": "Order Details"
+    }
+}

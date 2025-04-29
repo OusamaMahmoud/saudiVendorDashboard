@@ -1,0 +1,45 @@
+{
+    "table_headers": {
+        "order_number": "Order Number",
+        "customer": "Customer",
+        "order_date": "Order Date",
+        "total": "Total",
+        "order_details": "Order Details"
+    },
+    "orderDetails": " Order Details",
+    "ordersDetailsTableHeaders": {
+        "product": "Product",
+        "productNumber": "Product Number",
+        "currentQuantity": "Current Quantity",
+        "price": "Price",
+        "color": "Color",
+        "orderNumber": "Order Number",
+        "creationDate": "Creation Date"
+    },
+    "paymentStatus": {
+        "status": "Status",
+        "pending": "Pending",
+        "completed": "Completed",
+        "failed": "Failed",
+        "canceled": "Canceled",
+        "refunded": "Refunded",
+        "processing": "Processing"
+    },
+    "customer": {
+        "customer": "Customer",
+        "city": "City",
+        "billing": "Billing Address",
+        "shipping": "Shipping Address"
+    },
+    "price": "Price",
+    "productValue": "Product Value",
+    "discount": "Discount",
+    "totalAmount": "Total Amount",
+    "customerNotes": "Customer Notes on Order",
+    "noNotes": "No notes available",
+    "orderDelivery": "Delivery Agent",
+    "orderDeliveryDetails": "Delivery Representative",
+    "orderpaymentMethod": "Payment Method",
+    "ordersDetailsHeader": "Order Details",
+    "orderNo": "Order No"
+}

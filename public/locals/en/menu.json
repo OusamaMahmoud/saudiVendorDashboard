@@ -1,0 +1,19 @@
+{
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "reports": "Reports",
+    "customers": "Customers",
+    "new_customer": "New Customer",
+    "verified_customers": "Verified Customers",
+    "products": "Products",
+    "addCategories": "Add Categories",
+    "updateCategories": "Update Categories",
+    "new_product": "New Product",
+    "inventory": "Inventory",
+    "settings": "Settings",
+    "coupons": "Coupons",
+    "addCoupon": "Add a new coupon",
+    "updateCoupon": "Update a coupon",
+    "vendors": "Vendors",
+    "addProduct": "Add Product"
+}

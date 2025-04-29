@@ -1,0 +1,17 @@
+{
+    "title" : "لوحة التحكم",
+    "latestorder" : "أحدث الطلبات",
+    "total_products": "إجمالي المنتجات",
+    "total_sales": "إجمالي المبيعات",
+    "total_customers": "إجمالي العملاء",
+    "order_coupon": "قسيمة الطلب",
+    "average_sales_per_user": "متوسط المبيعات لكل مستخدم",
+    "user_coupon": "قسيمة المستخدم",
+    "tableHeader": {
+        "orderNo": "رقم الطلب",
+        "client": "العميل",
+        "orderDate": "تاريخ الطلب",
+        "result": "النتيجة",
+        "orderDetails": "تفاصيل الطلب"
+    }
+}

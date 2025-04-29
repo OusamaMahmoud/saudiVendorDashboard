@@ -1,0 +1,18 @@
+{
+    "dashboard": "لوحة التحكم",
+    "orders": "الطلبات",
+    "reports": "التقارير",
+    "customers": "العملاء",
+    "new_customer": "عميل جديد",
+    "verified_customers": "العملاء الموثقين",
+    "products": "المنتجات",
+    "categories": "الفئات",
+    "new_product": "منتج جديد",
+    "inventory": "المخزون",
+    "settings": "الإعدادات",
+    "coupons": "كوبونات",
+    "addCoupon": "اضافة كوبونات",
+    "updateCoupon": "تعديل الكوبون",
+    "vendors": "البائعين",
+    "addProduct": "اضافة منتج"
+}

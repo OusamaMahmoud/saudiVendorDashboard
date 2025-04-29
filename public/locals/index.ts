@@ -1,0 +1,10 @@
+export { default as menuAr } from "./ar/menu.json";
+export { default as menuEn } from "./en/menu.json";
+export { default as ordersEn } from "./en/orders.json";
+export { default as ordersAr } from "./ar/orders.json";
+export { default as homeEn } from "./en/home.json";
+export { default as homeAr } from "./ar/home.json";
+export { default as usersEn } from "./en/users.json";
+export { default as usersAr } from "./ar/users.json";
+export { default as vendorsEn } from "./en/vendors.json";
+export { default as vendorsAr } from "./ar/vendors.json";
