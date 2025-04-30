@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import axios from "axios";
-import { FaBox, FaLanguage, FaTags, FaMoneyBillWave, FaWarehouse, FaSave } from "react-icons/fa";
+import { FaBox, FaLanguage, FaMoneyBillWave, FaWarehouse, FaSave } from "react-icons/fa";
 import ReactQuillEditor from "./ReactQuillEditor";
 import ProductCategorySelector from "./ProductCategorySelector";
-import ProductImageForm from "./ProductImageForm";
-import AttributesForm from "./AttributesForm";
 import apiClient from "../../../utils/apiClient";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +50,37 @@ const ProductForm: React.FC = () => {
         productDescriptionArabic: "",
         productDescriptionEnglish: "",
     });
+
+    const [isProductDescAr, setIsProductDescAr] = useState(false);
+    const ProductDescArRef = useRef<{ focus: () => void }>(null);
+    const [isProductDescEn, setIsProductDescEn] = useState(false);
+    const ProductDescEnRef = useRef<{ focus: () => void }>(null);
+
+    useEffect(() => {
+        if (productDescription.productDescriptionArabic !== "<p><br></p>" && productDescription.productDescriptionArabic !== "") {
+            setIsProductDescAr(true);
+        } else {
+            setIsProductDescAr(false);
+        }
+
+        if (productDescription.productDescriptionEnglish !== "<p><br></p>" && productDescription.productDescriptionEnglish !== "") {
+            setIsProductDescEn(true);
+        } else {
+            setIsProductDescEn(false);
+        }
+    }, [productDescription, productDescription.productDescriptionArabic, productDescription.productDescriptionEnglish]);
+
     const [selectedCategories, setSelectedCategories] = useState<{ value: string; label: string }[]>([]);
+    const [isSelectedCategories, setIsSelectedCategories] = useState(false);
+    const selectedCategoriesRef = useRef<HTMLInputElement | null>(null);
+    useEffect(() => {
+        if (selectedCategories.length > 0) {
+            setIsSelectedCategories(true);
+        } else {
+            setIsSelectedCategories(false);
+        }
+    }, [selectedCategories]);
+
     const [showOnStore, setShowOnStore] = useState(true);
 
     useEffect(() => {
@@ -61,6 +88,19 @@ const ProductForm: React.FC = () => {
     }, [selectedCategories]);
 
     const onSubmit = async (data: ProductFormData) => {
+        if (isProductDescAr === false) {
+            ProductDescArRef.current?.focus();
+            return;
+        }
+        if (isProductDescEn === false) {
+            ProductDescEnRef.current?.focus();
+            return;
+        }
+        if (isSelectedCategories === false) {
+            selectedCategoriesRef.current?.focus();
+            return;
+        }
+
         console.log("=>=>", data);
         const formData = new FormData();
 
@@ -243,18 +283,29 @@ const ProductForm: React.FC = () => {
                     </div>
 
                     {/* Rich Text Editors */}
-                    <div className="mb-2">
+                    <div className="mb-52">
                         <h1 className="mb-2">Product Description [Ar]</h1>
-                        <ReactQuillEditor onChange={(val) => setProductDescription((prev) => ({ ...prev, productDescriptionArabic: val }))} />
+                        <ReactQuillEditor
+                            ref={ProductDescArRef}
+                            onChange={(val) => setProductDescription((prev) => ({ ...prev, productDescriptionArabic: val }))}
+                        />
+                        {!isProductDescAr && <p className="mt-1 text-sm text-red-600">وصف المنتج مطلوب</p>}
                     </div>
 
                     <div className="mb-2">
                         <h1 className="mb-2">Product Description [En]</h1>
-                        <ReactQuillEditor onChange={(val) => setProductDescription((prev) => ({ ...prev, productDescriptionEnglish: val }))} />
+                        <ReactQuillEditor
+                            ref={ProductDescEnRef}
+                            onChange={(val) => setProductDescription((prev) => ({ ...prev, productDescriptionEnglish: val }))}
+                        />
+                        {!isProductDescEn && <p className="mt-1 text-sm text-red-600">وصف المنتج مطلوب</p>}
                     </div>
 
-                    <ProductCategorySelector onSelectTargetCategories={(selected) => setSelectedCategories(selected)} />
-
+                    <ProductCategorySelector
+                        ref={selectedCategoriesRef}
+                        onSelectTargetCategories={(selected) => setSelectedCategories(selected)}
+                    />
+                    {!isSelectedCategories && <p className="mt-1 text-sm text-red-600">فئة المنتج مطلوبة</p>}
                     {/* Submit Button */}
                     <div className="mt-6 flex justify-center">
                         <button
