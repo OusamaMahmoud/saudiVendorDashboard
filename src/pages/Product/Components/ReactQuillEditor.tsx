@@ -1,12 +1,14 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+
 type Props = {
     onChange: (value: string) => void;
+    initialValue?: string;  // Added optional prop for initial value
 };
 
-const ReactQuillEditor = forwardRef(({ onChange }: Props, ref) => {
-    const [value, setValue] = useState("");
+const ReactQuillEditor = forwardRef(({ onChange, initialValue = "" }: Props, ref) => {
+    const [value, setValue] = useState(initialValue);
 
     const modules = {
         toolbar: [
@@ -24,7 +26,9 @@ const ReactQuillEditor = forwardRef(({ onChange }: Props, ref) => {
         setValue(content);
         onChange(content); // Pass value to parent
     };
+
     const quillRef = useRef<ReactQuill | null>(null);
+    
     useImperativeHandle(ref, () => ({
         focus: () => {
             const editor = quillRef.current?.getEditor();

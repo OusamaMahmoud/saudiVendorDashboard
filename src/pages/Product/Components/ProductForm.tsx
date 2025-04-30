@@ -59,19 +59,18 @@ const ProductForm: React.FC = () => {
             setIsProductDescAr(true);
         } else {
             setIsProductDescAr(false);
-            ProductDescArRef.current?.focus();
         }
 
         if (productDescription.productDescriptionEnglish !== "<p><br></p>" && productDescription.productDescriptionEnglish !== "") {
             setIsProductDescEn(true);
         } else {
             setIsProductDescEn(false);
-            ProductDescEnRef.current?.focus();
         }
     }, [productDescription, productDescription.productDescriptionArabic, productDescription.productDescriptionEnglish]);
 
     const [selectedCategories, setSelectedCategories] = useState<{ value: string; label: string }[]>([]);
     const [isSelectedCategories, setIsSelectedCategories] = useState(false);
+    const selectedCategoriesRef = useRef<HTMLInputElement | null>(null);
     useEffect(() => {
         if (selectedCategories.length > 0) {
             setIsSelectedCategories(true);
@@ -87,9 +86,18 @@ const ProductForm: React.FC = () => {
     }, [selectedCategories]);
 
     const onSubmit = async (data: ProductFormData) => {
-        if (isProductDescAr === false) return;
-        if (isProductDescEn === false) return;
-        if (isSelectedCategories === false) return;
+        if (isProductDescAr === false) {
+            ProductDescArRef.current?.focus();
+            return;
+        }
+        if (isProductDescEn === false) {
+            ProductDescEnRef.current?.focus();
+            return;
+        }
+        if (isSelectedCategories === false) {
+            selectedCategoriesRef.current?.focus();
+            return;
+        }
 
         console.log("=>=>", data);
         const formData = new FormData();
@@ -287,7 +295,10 @@ const ProductForm: React.FC = () => {
                         {!isProductDescEn && <p className="mt-1 text-sm text-red-600">وصف المنتج مطلوب</p>}
                     </div>
 
-                    <ProductCategorySelector onSelectTargetCategories={(selected) => setSelectedCategories(selected)} />
+                    <ProductCategorySelector
+                        ref={selectedCategoriesRef}
+                        onSelectTargetCategories={(selected) => setSelectedCategories(selected)}
+                    />
                     {!isSelectedCategories && <p className="mt-1 text-sm text-red-600">فئة المنتج مطلوبة</p>}
                     {/* Submit Button */}
                     <div className="mt-6 flex justify-center">
