@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 type Props = {
     onChange: (value: string) => void;
 };
 
-const ReactQuillEditor = ({ onChange }: Props) => {
+const ReactQuillEditor = forwardRef(({ onChange }: Props, ref) => {
     const [value, setValue] = useState("");
 
     const modules = {
@@ -24,10 +24,18 @@ const ReactQuillEditor = ({ onChange }: Props) => {
         setValue(content);
         onChange(content); // Pass value to parent
     };
+    const quillRef = useRef<ReactQuill | null>(null);
+    useImperativeHandle(ref, () => ({
+        focus: () => {
+            const editor = quillRef.current?.getEditor();
+            if (editor) editor.focus();
+        },
+    }));
 
     return (
         <div>
             <ReactQuill
+                ref={quillRef}
                 theme="snow"
                 value={value}
                 onChange={handleChange}
@@ -36,6 +44,6 @@ const ReactQuillEditor = ({ onChange }: Props) => {
             />
         </div>
     );
-};
+});
 
 export default ReactQuillEditor;
