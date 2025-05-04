@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FiUpload, FiX, FiCheck, FiImage } from "react-icons/fi";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import apiClient from "../../../utils/apiClient";
+import { toast } from "react-toastify";
 
 // TypeScript interfaces
 interface ProductFormInputs {
@@ -14,6 +17,13 @@ interface ImagePreview {
 }
 
 const ProductImageForm = () => {
+    const params = useParams();
+    const [productId, setProductId] = useState("");
+
+    useEffect(() => {
+        if (params) setProductId(params.id as string);
+    }, [params]);
+
     // React Hook Form setup
     const {
         register,
@@ -21,8 +31,7 @@ const ProductImageForm = () => {
         formState: { errors, isSubmitting },
         reset,
     } = useForm<ProductFormInputs>();
-
-    // State for image previews
+    const navigate = useNavigate(); // State for image previews
     const [thumbnailPreview, setThumbnailPreview] = useState<ImagePreview | null>(null);
     const [productPreviews, setProductPreviews] = useState<ImagePreview[]>([]);
     const [submissionStatus, setSubmissionStatus] = useState<"idle" | "success" | "error">("idle");
@@ -79,26 +88,24 @@ const ProductImageForm = () => {
             const formData = new FormData();
 
             if (data.thumbnailImage && data.thumbnailImage.length > 0) {
-                formData.append("thumbnailImage", data.thumbnailImage[0]);
+                formData.append("thumbnail", data.thumbnailImage[0]);
             }
 
             if (data.productImages && data.productImages.length > 0) {
                 Array.from(data.productImages).forEach((file, index) => {
-                    formData.append(`productImages[${index}]`, file);
+                    formData.append(`images[${index}]`, file);
                 });
             }
 
-            // API call - Replace URL with your actual API endpoint
-            const response = await fetch("https://your-api-endpoint.com/upload-images", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to upload images");
+            if (productId) {
+                formData.append("product-id", productId);
             }
 
-            // Handle success
+            // API call - Replace URL with your actual API endpoint
+            const response = await apiClient.post("/api/dashboard/products/storeImages", formData);
+            console.log(response.data);
+            toast.success("Images uploaded successfully!");
+            navigate(`/products/${productId}/product-attributes`);
             setSubmissionStatus("success");
             setTimeout(() => {
                 reset();
@@ -109,6 +116,8 @@ const ProductImageForm = () => {
             }, 3000);
         } catch (error) {
             console.error("Error uploading images:", error);
+            toast.error("Failed to upload images. Please try again.");
+            navigate(`/products/${productId}/product-attributes`);
             setSubmissionStatus("error");
             setTimeout(() => setSubmissionStatus("idle"), 3000);
         }

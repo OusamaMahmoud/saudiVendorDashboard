@@ -14,7 +14,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Coupons from "./pages/coupons/Coupons";
 import Vendors from "./pages/Vendors/Vendors";
 import AddProductForm from "./pages/Product/AddProductForm";
-import CompleteProductForm from "./pages/Product/Components/CompleteProductForm";
+import ProductImageForm from "./pages/Product/Components/ProductImageForm";
+import AttributesForm from "./pages/Product/Components/AttributesForm";
 
 function App() {
     const router = createBrowserRouter([
@@ -59,8 +60,12 @@ function App() {
                     element: <AddProductForm />,
                 },
                 {
-                    path: "/products/complete-product",
-                    element: <CompleteProductForm />,
+                    path: "/products/:id/product-images",
+                    element: <ProductImageForm />,
+                },
+                {
+                    path: "/products/:id/product-attributes",
+                    element: <AttributesForm />,
                 },
                 {
                     path: "new-customer",

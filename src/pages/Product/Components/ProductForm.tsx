@@ -125,9 +125,7 @@ const ProductForm: React.FC = () => {
             const response = await apiClient.post("/api/dashboard/products/storeBaseInformation", formData);
             toast.success("Product saved successfully!");
             console.log("is This THe Id =>", response.data);
-            navigate("/products/complete-product", {
-                state: { productId: response.data.data.productId },
-            });
+            navigate(`/products/${response.data.data.productId}/product-images`);
             reset(); // Reset the form after successful submission
         } catch (error) {
             console.error("Error saving product:", error);

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import axios from "axios";
 import { FiPlus, FiTrash2, FiSave, FiLoader } from "react-icons/fi";
+import apiClient from "../../../utils/apiClient";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 // Define types for our form
 interface KeyValuePair {
@@ -49,15 +52,14 @@ const AttributesForm = () => {
 
         try {
             // Send data to API using Axios
-            const response = await axios.post("https://your-api-endpoint.com/attributes", data.attributes);
+            const response = await apiClient.post("/api/dashboard/products/storeDetailsInformation", data.attributes);
 
             console.log("API Response:", response.data);
             setSubmitStatus("success");
-
-            // Optional: Reset form after successful submission
-            // reset();
+            toast.success("تم إرسال البيانات بنجاح!");
         } catch (error) {
             console.error("Error submitting form:", error);
+            toast.error("حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.");
             setSubmitStatus("error");
         } finally {
             setIsSubmitting(false);
@@ -98,7 +100,6 @@ const AttributesForm = () => {
                             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                 {/* Key Section */}
                                 <div className="space-y-4">
-                                    <h4 className="font-medium">المفتاح (Key)</h4>
 
                                     <div className="form-control">
                                         <label className="label">
@@ -109,7 +110,6 @@ const AttributesForm = () => {
                                             placeholder="القيمة باللغة العربية"
                                             className={`input input-bordered w-full ${errors.attributes?.[index]?.key?.ar ? "input-error" : ""}`}
                                             {...register(`attributes.${index}.key.ar`, { required: "هذا الحقل مطلوب" })}
-                                            dir="rtl"
                                         />
                                         {errors.attributes?.[index]?.key?.ar && (
                                             <label className="label">
@@ -127,7 +127,6 @@ const AttributesForm = () => {
                                             placeholder="القيمة باللغة الإنجليزية"
                                             className={`input input-bordered w-full ${errors.attributes?.[index]?.key?.en ? "input-error" : ""}`}
                                             {...register(`attributes.${index}.key.en`, { required: "هذا الحقل مطلوب" })}
-                                            dir="ltr"
                                         />
                                         {errors.attributes?.[index]?.key?.en && (
                                             <label className="label">
@@ -139,19 +138,16 @@ const AttributesForm = () => {
 
                                 {/* Value Section */}
                                 <div className="space-y-4">
-                                    <h4 className="font-medium">التفاصيل (Value)</h4>
 
                                     <div className="form-control">
                                         <label className="label">
                                             <span className="label-text">التفاصيل (عربي)</span>
                                         </label>
-                                        <input
-                                            type="text"
-                                            placeholder="التفاصيل باللغة العربية"
+                                        <textarea
+                                            placeholder="Details in Arabic"
                                             className={`input input-bordered w-full ${errors.attributes?.[index]?.value?.ar ? "input-error" : ""}`}
                                             {...register(`attributes.${index}.value.ar`, { required: "هذا الحقل مطلوب" })}
-                                            dir="rtl"
-                                        />
+                                        ></textarea>
                                         {errors.attributes?.[index]?.value?.ar && (
                                             <label className="label">
                                                 <span className="label-text-alt text-error">{errors.attributes?.[index]?.value?.ar?.message}</span>
@@ -163,13 +159,11 @@ const AttributesForm = () => {
                                         <label className="label">
                                             <span className="label-text">التفاصيل (إنجليزي)</span>
                                         </label>
-                                        <input
-                                            type="text"
-                                            placeholder="التفاصيل باللغة الإنجليزية"
+                                        <textarea
+                                            placeholder="Details in English"
                                             className={`input input-bordered w-full ${errors.attributes?.[index]?.value?.en ? "input-error" : ""}`}
                                             {...register(`attributes.${index}.value.en`, { required: "هذا الحقل مطلوب" })}
-                                            dir="ltr"
-                                        />
+                                        ></textarea>
                                         {errors.attributes?.[index]?.value?.en && (
                                             <label className="label">
                                                 <span className="label-text-alt text-error">{errors.attributes?.[index]?.value?.en?.message}</span>
